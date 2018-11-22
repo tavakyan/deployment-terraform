@@ -11,13 +11,6 @@ jobs:
       - run:
           name: Generate shared workspace folder
           command: mkdir -p /tmp/workspace
- 
-      - checkout:
-          path: ~/deployment-terraform/
-
-      - run:
-          name: Set all.yml config
-          command: cat ~/deployment-terraform/azure/group_vars/${CIRCLE_BRANCH}.yml > /tmp/workspace/all.yml
 
       - run:
           name: set id_rsa.pub
@@ -53,8 +46,8 @@ jobs:
           command: echo 'export tf_prefix=tf_$(cat /tmp/workspace/prefix)_' >> $BASH_ENV
 
       - run:
-          name: Copy all.yml file to appropriate folder
-          command: cp /tmp/workspace/all.yml  ~/deployment-terraform/azure/group_vars/all.yml
+          name: Copy branch file to all.yml file in appropriate folder
+          command: cp ~/deployment-terraform/azure/group_vars/${CIRCLE_BRANCH}.yml  ~/deployment-terraform/azure/group_vars/all.yml
 
       - run:
           name: Deploy infra
@@ -90,8 +83,8 @@ jobs:
           at: /tmp/workspace/
 
       - run:
-          name: Copy all.yml file to appropriate folder
-          command: cp /tmp/workspace/all.yml  ~/deployment-terraform/azure/group_vars/all.yml
+          name: Copy branch file to all.yml file in appropriate folder
+          command: cp ~/deployment-terraform/azure/group_vars/${CIRCLE_BRANCH}.yml  ~/deployment-terraform/azure/group_vars/all.yml
 
       - run:
           name: Fetch pre-defined prefix to environmental variable
@@ -130,8 +123,8 @@ jobs:
           command: echo 'export tf_prefix=tf_$(cat /tmp/workspace/prefix)_' >> $BASH_ENV
 
       - run:
-          name: Copy all.yml file to appropriate folder
-          command: cp /tmp/workspace/all.yml  ~/deployment-terraform/azure/group_vars/all.yml
+          name: Copy branch file to all.yml file in appropriate folder
+          command: cp ~/deployment-terraform/azure/group_vars/${CIRCLE_BRANCH}.yml  ~/deployment-terraform/azure/group_vars/all.yml
 
       - run:
           name: destroy infra
