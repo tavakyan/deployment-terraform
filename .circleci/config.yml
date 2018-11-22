@@ -11,6 +11,9 @@ jobs:
       - run:
           name: Generate shared workspace folder
           command: mkdir -p /tmp/workspace
+ 
+      - checkout:
+          path: ~/deployment-terraform/
 
       - run:
           name: Set all.yml config
