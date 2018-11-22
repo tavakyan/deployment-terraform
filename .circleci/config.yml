@@ -14,7 +14,7 @@ jobs:
 
       - run:
           name: Set all.yml config
-          command: cat ./group_vars/${CIRCLE_BRANCH}.yml > /tmp/workspace/all.yml
+          command: cat ~/deployment-terraform/azure/group_vars/${CIRCLE_BRANCH}.yml > /tmp/workspace/all.yml
 
       - run:
           name: set id_rsa.pub
