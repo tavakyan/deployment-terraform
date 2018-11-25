@@ -1,6 +1,6 @@
 ---
-DEPLOYMENT_PLAYBOOKS: https://github.com/poanetwork/deployment-playbooks.git
-DEPLOYMENT_TERRAFORM: https://github.com/poanetwork/deployment-terraform.git
+DEPLOYMENT_PLAYBOOKS: https://github.com/c4coin/deployment-playbooks.git
+DEPLOYMENT_TERRAFORM: https://github.com/c4coin/deployment-terraform.git
 DEPLOYMENT_PLAYBOOKS_BRANCH: master
 DEPLOYMENT_TERRAFORM_BRANCH: develop
 C4COIN_CONSENSUS_CONTRACTS: https://github.com/c4coin/c4coin-network-consensus-contracts.git
