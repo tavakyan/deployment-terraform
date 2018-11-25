@@ -2,7 +2,7 @@
 
 CERTPATH="/home/${ANSIBLE_USER}/${NETWORK_NAME}"
 KEYGENPATH="/home/${ANSIBLE_USER}/deployment-terraform/helper-scripts/key-generator"
-BYTEGENPATH="/home/${ANSIBLE_USER}/poa-network-consensus-contracts/scripts"
+BYTEGENPATH="/home/${ANSIBLE_USER}/c4coin-network-consensus-contracts/scripts"
 MOC_SECRET_FILE="moc_secret"
 NETSTAT_SECRET_FILE="netstat_secret"
 CERT_SECRET_FILE="cert_secret"

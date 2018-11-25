@@ -5,7 +5,7 @@
 
 - name: Check if contracts were not already deployed
   find:
-    paths: "/home/moc/poa-network-consensus-contracts/"
+    paths: "/home/moc/c4coin-network-consensus-contracts/"
     patterns: "contracts.json"
   register: contracts
 
@@ -26,10 +26,10 @@
 
 - name: Ensure POA contracts exists on local server
   git:
-    repo: "{{ POA_CONSENSUS_CONTRACTS }}"
-    dest: "/home/{{ ansible_user }}/poa-network-consensus-contracts"
+    repo: "{{ C4COIN_CONSENSUS_CONTRACTS }}"
+    dest: "/home/{{ ansible_user }}/c4coin-network-consensus-contracts"
     force: yes
-    version: "{{ POA_CONSENSUS_CONTRACTS_BRANCH }}"
+    version: "{{ C4COIN_CONSENSUS_CONTRACTS_BRANCH }}"
 
 - name: Create folder that will contain all configs for created network
   file:
@@ -102,13 +102,13 @@
 - name: Install reqired NPM modules (scripts)
   shell: npm install
   args:
-    chdir: /home/{{ ansible_user }}/poa-network-consensus-contracts/scripts/
+    chdir: /home/{{ ansible_user }}/c4coin-network-consensus-contracts/scripts/
 
 - name: Installing solc if bytecode is not generated (workaround)
   shell: npm install solc@0.4.24
   args:
     creates: "/home/{{ ansible_user }}/{{ NETWORK_NAME }}/bytecode"
-    chdir: /home/{{ ansible_user }}/poa-network-consensus-contracts/scripts/
+    chdir: /home/{{ ansible_user }}/c4coin-network-consensus-contracts/scripts/
 
 - name: Generate certificates and secrets
   shell: "/home/{{ ansible_user }}/deployment-terraform/azure/roles/moc-preconf/files/generator.sh"
