@@ -163,41 +163,41 @@ function processInitialKeyFile(fname, done) {
     //         return done();
     //     }
     //     else if (r == '1') {
-            loginf('This initial key is active, converting it to production keys...');
-            var miningKey = generateKey('mining');
-            var votingKey = generateKey('voting');
-            var payoutKey = generateKey('payout');
-            loginf('miningKey:', miningKey);
-            loginf('votingKey:', votingKey);
-            loginf('payoutKey:', payoutKey);
-            createKeys(
-                address,
-                privateKey,
-                miningKey.keyObj.address,
-                votingKey.keyObj.address,
-                payoutKey.keyObj.address,
-                (err, txReceipt) => {
-                    if (err) throw err;
+    loginf('This initial key is active, converting it to production keys...');
+    var miningKey = generateKey('mining');
+    var votingKey = generateKey('voting');
+    var payoutKey = generateKey('payout');
+    loginf('miningKey:', miningKey);
+    loginf('votingKey:', votingKey);
+    loginf('payoutKey:', payoutKey);
+    createKeys(
+        address,
+        privateKey,
+        miningKey.keyObj.address,
+        votingKey.keyObj.address,
+        payoutKey.keyObj.address,
+        (err, txReceipt) => {
+            if (err) throw err;
 
-                    var folder = `./production-keys/validator-${address}/`;
-                    loginf('Creating keys folder:', folder);
-                    mkdirp(folder);
+            var folder = `./production-keys/validator-${address}/`;
+            loginf('Creating keys folder:', folder);
+            mkdirp(folder);
 
-                    saveKey(folder, initialKey);
-                    saveKey(folder, miningKey);
-                    saveKey(folder, votingKey);
-                    saveKey(folder, payoutKey);
+            saveKey(folder, initialKey);
+            saveKey(folder, miningKey);
+            saveKey(folder, votingKey);
+            saveKey(folder, payoutKey);
 
-                    loginf('***** done with', fname);
-                    return done();
-                }
-            );
+            loginf('***** done with', fname);
+            return done();
+        }
+    );
         // }
         // else {
         //     logerr('This initial key is incorrect');
         //     throw new Error('Incorrect initial key');
         // }
-    });
+    // });
 }
 
 // ********** MAIN ********* //
