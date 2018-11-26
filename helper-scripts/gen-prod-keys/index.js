@@ -191,7 +191,7 @@ function processInitialKeyFile(fname, done) {
                     loginf('***** done with', fname);
                     return done();
                 }
-        //     );
+            );
         // }
         // else {
         //     logerr('This initial key is incorrect');
