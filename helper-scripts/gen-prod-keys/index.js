@@ -12,8 +12,12 @@ const RPC_ENDPOINT = process.env.RPC_ENDPOINT || 'http://localhost:8545';
 const web3 = new Web3(new Web3.providers.HttpProvider(RPC_ENDPOINT));
 const keysDir = '.';
 const keysManagerAddress = process.argv[2];
-const keysManagerABI = require('./KeysManager.abi.json');
+// const keysManagerABI = require('./KeysManager.abi.json');
+const keysManagerABI = require('./IKeysManager.abi.json');
+// const keysManagerPrevABI = require('./IKeysManagerPrev.abi.json');
 var keysManagerContract;
+// var keysManagerPrevContract;
+// var keysManagerPrevAddress;
 var chainId;
 
 const GASPRICE_GWEI = 2;
@@ -45,8 +49,8 @@ function generateKey(name) {
 }
 
 function validateArgs() {
-    if (process.argv.length !== 3) {
-        logerr('Usage: node index.js KEYS_MANAGER_ADDRESS');
+    if (process.argv.length !== 2) {
+        logerr('Usage: node index.js KEYS_MANAGER_ADDRESS KEYS_MANAGER_ADDRESS');
         process.exit(1);
     }
 
@@ -71,12 +75,12 @@ function getPrivateKey(key) {
     return Keythereum.recover(key.password, key.keyObj);
 }
 
-function checkInitialKey(address, next) {
-    keysManagerContract.methods.getInitialKey(`0x${address}`).call((err, result) => {
-        if (err) throw err;
-        return next(result.toString());
-    });
-}
+// function checkInitialKey(address, next) {
+//     keysManagerPrevContract.methods.getInitialKey(`0x${address}`).call((err, result) => {
+//         if (err) throw err;
+//         return next(result.toString());
+//     });
+// }
 
 function createKeys(address, privateKey, miningKeyAddress, votingKeyAddress, payoutKeyAddress, callback) {
     loginf('*** createKeys for: ' + address);
@@ -152,13 +156,13 @@ function processInitialKeyFile(fname, done) {
     var privateKey = getPrivateKey(initialKey);
     loginf('Recovered private key from initial key:', privateKey.toString('hex'));
 
-    checkInitialKey(address, (r) => {
-        // deactivated
-        if (r == '2') {
-            loginf('This initial key is deactivated, skipping');
-            return done();
-        }
-        else if (r == '1') {
+    // checkInitialKey(address, (r) => {
+    //     // deactivated
+    //     if (r == '2') {
+    //         loginf('This initial key is deactivated, skipping');
+    //         return done();
+    //     }
+    //     else if (r == '1') {
             loginf('This initial key is active, converting it to production keys...');
             var miningKey = generateKey('mining');
             var votingKey = generateKey('voting');
@@ -187,18 +191,23 @@ function processInitialKeyFile(fname, done) {
                     loginf('***** done with', fname);
                     return done();
                 }
-            );
-        }
-        else {
-            logerr('This initial key is incorrect');
-            throw new Error('Incorrect initial key');
-        }
+        //     );
+        // }
+        // else {
+        //     logerr('This initial key is incorrect');
+        //     throw new Error('Incorrect initial key');
+        // }
     });
 }
 
 // ********** MAIN ********* //
 validateArgs();
 keysManagerContract = new web3.eth.Contract(keysManagerABI, keysManagerAddress);
+// keysManagerPrevAddress = keysManagerContract.methods.getInitialKey(`0x${address}`).call((err, result) => {
+//     if (err) throw err;
+//     return next(result.toString());
+// });
+// keysManagerPrevContract = new web3.eth.Contract(keysManagerPrevABI, keysManagerPrevAddress);
 
 loginf('calling getId');
 web3.eth.net.getId((err, _chainId) => {
