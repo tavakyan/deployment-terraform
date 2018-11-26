@@ -49,8 +49,8 @@ function generateKey(name) {
 }
 
 function validateArgs() {
-    if (process.argv.length !== 2) {
-        logerr('Usage: node index.js KEYS_MANAGER_ADDRESS KEYS_MANAGER_ADDRESS');
+    if (process.argv.length !== 3) {
+        logerr('Usage: node index.js KEYS_MANAGER_ADDRESS');
         process.exit(1);
     }
 
