@@ -1,3 +1,3 @@
 ---
 C4COIN_CONSENSUS_CONTRACTS: https://github.com/c4coin/c4coin-network-consensus-contracts.git
-C4COIN_CONSENSUS_CONTRACTS_BRANCH: "alphanet"
+C4COIN_CONSENSUS_CONTRACTS_BRANCH: "1.0"
